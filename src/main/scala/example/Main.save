@@ -1,0 +1,24 @@
+package example
+
+import scala.scalajs.js
+import js.Dynamic.{ global => g }
+import js.annotation.JSExport
+import org.scalajs.dom
+
+import com.cyberthinkers.firedancer3d.math._
+
+object Main {
+  def main(): Unit = {
+    val v = Quaternion.identity;
+    val v3 = new Vector3(1,2,3)
+    val vec = new Vector4;
+    val paragraph = g.document.createElement("p")
+    paragraph.innerHTML = "<strong>It works!</strong>"
+    g.document.getElementById("playground").appendChild(paragraph)
+  }
+
+  /** Computes the square of an integer.
+   *  This demonstrates unit testing.
+   */
+  def square(x: Int): Int = x*x
+}
