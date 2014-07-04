@@ -7,14 +7,20 @@ case class Matrix4 (
    m30: Double, m31: Double, m32: Double, m33: Double) {
   
   def this(m: Matrix4) = {
-    this(m.m00, m.m01, m.m02, m.m03, m.m10, m.m11, m.m12, m.m13, m.m20, m.m21, m.m22, m.m23, m.m30, m.m31, m.m32, m.m33)
+    this(m.m00, m.m01, m.m02, m.m03,
+         m.m10, m.m11, m.m12, m.m13,
+         m.m20, m.m21, m.m22, m.m23,
+         m.m30, m.m31, m.m32, m.m33)
   }
   
-  def this(m: Matrix3) {
-    this(m.m00, m.m01, m.m02, 0, m.m10, m.m11, m.m12, 0, m.m20, m.m21, m.m22, 0, 0, 0, 0, 0)
+  def this(m: Matrix3) = {
+    this(m.m00, m.m01, m.m02, 0,
+         m.m10, m.m11, m.m12, 0,
+         m.m20, m.m21, m.m22, 0,
+         0, 0, 0, 0)
   }
   
-  def this(v: Vector3) { // transpose matrix
+  def this(v: Vector3) = { // transpose matrix
     this(1, 0, 0, v.x,
          0, 1, 0, v.y,
          0, 0, 1, v.z,
@@ -26,6 +32,13 @@ case class Matrix4 (
      (m10, m11, m12, m13),
      (m20, m21, m22, m23),
      (m30, m31, m32, m33))
+  }
+  
+  def columnTupled = {
+    ((m00, m10, m20, m30),
+     (m01, m11, m21, m31),
+     (m02, m12, m22, m32),
+     (m03, m13, m23, m33))
   }
   
   def transposeVector = {

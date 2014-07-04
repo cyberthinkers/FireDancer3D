@@ -2,13 +2,9 @@ package com.cyberthinkers.firedancer3d.math.immutable
 
 case class Vector3(x:Double, y:Double, z:Double) {
 
-  def this(v: Vector3) {
-    this(v.x, v.y, v.z)
-  }
+  def this(v: Vector3) = this(v.x, v.y, v.z)
 
-  def this(t: (Double, Double, Double)) {
-    this(t._1, t._2, t._3)
-  }
+  def this(t: (Double, Double, Double)) = this(t._1, t._2, t._3)
 
   def +(that: Vector3) = Vector3(this.x + that.x, this.y + that.y, this.z + that.z)
   def -(that: Vector3) = Vector3(this.x - that.x, this.y - that.y, this.z - that.z)
@@ -22,13 +18,9 @@ case class Vector3(x:Double, y:Double, z:Double) {
   
   def tupled = (x, y, z)
   
-  def length = {
-    Math.sqrt(lengthSquared)
-  }
+  def length = Math.sqrt(lengthSquared)
   
-  def lengthSquared = {
-    x * x + y * y + z * z
-  }
+  def lengthSquared = x * x + y * y + z * z
   
   def normalize = {
     val d = length

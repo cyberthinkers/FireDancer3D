@@ -8,24 +8,30 @@ import org.scalajs.dom
  * http://www.ogre3d.org/docs/api/1.9/classOgre_1_1Quaternion.html
  */
 case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
-     def toEulerAngles() {
+  
+     def this(q: Quaternion) = this(q.x, q.y, q.z, q.w)
+     
+     def this(t: (Double, Double, Double, Double)) = this(t._1, t._2, t._3, t._4)
+     
+     def this(t:(Double, Double, Double)) = this(Quaternion.fromEulerAngles(t._1, t._2, t._3))
+  
+     def tupled = (x, y, z, w)
+     
+     def toEulerAngles(): (Double, Double, Double) = {
        val sqw = w * w
        val sqx = x * x
        val sqy = y * y
        val sqz = z * z
        val u = sqx + sqy + sqz + sqw
-       val test = x * y + z * w
-       if(test > 0.499) {
-          (2 * Math.atan2(y, w), Quaternion.halfPI, 0)
-       } else if(test < -0.499 * u) {
-          (-2 * Math.atan2(y, w), Quaternion.halfPI, 0)
-       }  else {
-         (Math.atan2(2 * y * w - 2 * x * z, sqx - sqy -sqz + sqw), 
-          Math.asin(2 * test / u), 
-          Math.atan2(2 * x * w -2 * y * z, -sqx + sqy -sqz +sqw))
-       }
+       x * y + z * w match {
+         case x if x >  0.499     => (2 * Math.atan2(y, w), Quaternion.halfPI, 0.0)
+         case x if x < -0.499 * u => (-2 * Math.atan2(y, w), Quaternion.halfPI, 0.0)
+         case somethingElse       => 
+           (Math.atan2(2 * y * w - 2 * x * z, sqx - sqy -sqz + sqw), 
+            Math.asin(2 * somethingElse / u), 
+            Math.atan2(2 * x * w -2 * y * z, -sqx + sqy -sqz + sqw))
+        }
      }
-
 }
 
 object Quaternion {
@@ -37,7 +43,7 @@ object Quaternion {
    /**
     * Create Quaternion from Euler angles (in radians)
     */
-   def fromEulerAngles(heading: Double, attitude: Double, bank: Double) {
+   def fromEulerAngles(heading: Double, attitude: Double, bank: Double) = {
      val h = heading *.5
      val sinHeading = Math.sin(h)
      val cosHeading = Math.cos(h)
@@ -59,4 +65,5 @@ object Quaternion {
          d4 * cosBank + d3 * sinBank,
          d3 * cosBank - d4 * sinBank)
    }
+     
 }
