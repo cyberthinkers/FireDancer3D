@@ -9,7 +9,7 @@ import com.cyberthinkers.firedancer3d.math.immutable._
 object ScalaJSExample extends js.JSApp {
   def main(): Unit = {
     //val v = Matrix4(); // doesn't work
-    
+    val tmp = EulerAngles.toCanonicalForm(.3, .2, .1)
     val m = Matrix4.identity
     val m1 = m.rotate(.3, Vector3(.1,.2,.3))
     var d = new js.Date()

@@ -6,6 +6,8 @@ case class Vector2(x:Double, y:Double) {
 
   def this(t: (Double, Double)) = this(t._1, t._2)
 
+  def tupled = (x, y)
+  
   def +(that: Vector2) = Vector2(this.x + that.x, this.y + that.y)
   def -(that: Vector2) = Vector2(this.x - that.x, this.y - that.y)
   def *(that: Vector2) = Vector2(this.x * that.x, this.y * that.y)
@@ -16,9 +18,7 @@ case class Vector2(x:Double, y:Double) {
   
   def - = Vector2(-x, -y)
   
-  def tupled = (x, y)
-  
-  def length =  Math.sqrt(lengthSquared)
+  def length = Math.sqrt(lengthSquared)
   
   def lengthSquared = x * x + y * y
   
