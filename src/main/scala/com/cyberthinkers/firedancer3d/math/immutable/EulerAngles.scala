@@ -1,19 +1,20 @@
 package com.cyberthinkers.firedancer3d.math.immutable
 import Math._
-//
-// Yaw, Pitch, Roll is the same as Heading, Pitch, Bank
-case class EulerAngles(heading: Double, attitude: Double, bank: Double) {
-   def toCanonicalForm: EulerAngles = EulerAngles.toCanonicalForm(heading, attitude, bank)
+
+case class EulerAngles(heading: Double, pitch: Double, bank: Double) {
+  
+   def this(e: EulerAngles) = this(e.heading, e.pitch, e.bank)
+   
+   def toCanonicalForm: EulerAngles = EulerAngles.toCanonicalForm(heading, pitch, bank)
 
 }
 
 object EulerAngles {
   val identity =  EulerAngles(0, 0, 0)
-  
-  private[this] def wrapPI(theta: Double): Double = (floor((theta + PI) * (1 / PI)) * PI * 2) - PI
-  
+ 
+  // this may not be needed here and it needs some restructuring
   def toCanonicalForm(heading: Double, pitch: Double, bank: Double): EulerAngles = {
-    val pitchWrapped = wrapPI(pitch)
+    val pitchWrapped = Utilities.wrapPI(pitch)
     val c =
       if(pitchWrapped < (-PI / 2) ) { 
          EulerAngles(-PI - pitchWrapped, heading + PI, bank + PI) 
@@ -26,10 +27,10 @@ object EulerAngles {
     //   assign all rotation about the vertical axis to heading
     // else
     //   just wrap the bank angle in canonical range
-    if(abs(c.attitude) > (PI / 2) - 1e-4) { 
-      EulerAngles(wrapPI(c.heading + c.bank), c.attitude, 0)
+    if(abs(c.pitch) > (PI / 2) - 1e-4) { 
+      EulerAngles(Utilities.wrapPI(c.heading + c.bank), c.pitch, 0)
     } else {
-      EulerAngles(wrapPI(c.heading), c.attitude, wrapPI(c.bank))
+      EulerAngles(Utilities.wrapPI(c.heading), c.pitch, Utilities.wrapPI(c.bank))
     }
   }
 }

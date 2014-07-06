@@ -11,11 +11,14 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) {
   
      def this(q: Quaternion) = this(q.w, q.x, q.y, q.z)
      
+     def this(v: (Double, Double, Double, Double)) = this(v._1, v._2, v._3, v._4)
+     
      def this(w: Double, v: (Double, Double, Double)) = this(w, v._1, v._2, v._3)
      
      def this(w: Double, v: Vector3) = this(w, v.x, v.y, v.z)
      
      def this(eulerAngles: EulerAngles) = this(Quaternion.fromEulerAngles(eulerAngles))
+     
   
      def tupled = (w, x, y, z)
      
@@ -36,7 +39,57 @@ case class Quaternion(w: Double, x: Double, y: Double, z: Double) {
        val oneOverMag = 1 / magnitude
        Quaternion(w * oneOverMag, x * oneOverMag, y * oneOverMag, z * oneOverMag)
      }
-  
+   
+     def rotate(angle: Double, xp: Double, yp: Double, zp: Double): Quaternion = {
+       if(x == 0 && z == 0 && z == 0) {
+          this
+       }
+       val halfAngle = .05 * angle
+       val s = sin(halfAngle)
+       val qw = cos(halfAngle)
+       val qx = s * xp
+       val qy = s * yp
+       val qz = s * zp
+       Quaternion(
+         -x * qx - y * qy  -z * qz + w * qw, // w
+          x * qw + y * qz - z * qy + w * qx, // x
+         -x * qz + y * qw + z * qx + w * qy, // y
+          x * qy - y * qx + z * qw + w * qz) // z
+     }
+     
+     def rotateX(angle: Double): Quaternion = {
+       val halfAngle = .05 * angle
+       val s = sin(halfAngle)
+       val c = cos(halfAngle)
+       Quaternion(
+         -x * s + w * c, // w
+          x * c + w * s, // x
+          y * c + z * s, // y
+         -y * s + z * c) // z
+     }
+     
+     def rotateY(angle: Double): Quaternion = {
+       val halfAngle = .05 * angle
+       val s = sin(halfAngle)
+       val c = cos(halfAngle)
+       Quaternion(
+         -y * s + w * c, // w
+          x * c - z * s, // x
+          y * c + w * s, // y
+          x * s + z * c) // z
+     }    
+     
+     def rotateZ(angle: Double): Quaternion = {
+       val halfAngle = .05 * angle
+       val s = sin(halfAngle)
+       val c = cos(halfAngle)
+       Quaternion(
+         -y * s + w * c, // w
+          x * c - z * s, // x
+          y * c + w * s, // y
+          x * s + z * c) // z
+     }
+     
      
      def toEulerAngles(): EulerAngles = {
        val sqw = w * w
@@ -61,14 +114,20 @@ object Quaternion {
    val identity = new Quaternion(1, 0, 0, 0)
    val halfPI = Math.PI / 2
    
+   def fromRotationMatrix(m: Matrix3): Quaternion = {
+     // some code goes here
+     
+     identity
+   }
+   
    /**
     * Create Quaternion from Euler angles (in radians)
     */
-   def fromEulerAngles(eulerAngles: EulerAngles) = {
-     val h = eulerAngles.heading *.5
+   def fromEulerAngles(eulerAngles: EulerAngles): Quaternion = {
+     val h = eulerAngles.heading * .5
      val sinHeading = sin(h)
      val cosHeading = cos(h)
-     val a = eulerAngles.attitude * .5
+     val a = eulerAngles.pitch *.5
      val sinAttitude = sin(a)
      val cosAttitude = cos(a)
      val b = eulerAngles.bank *.5

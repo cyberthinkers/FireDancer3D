@@ -18,8 +18,6 @@ case class Vector3(x:Double, y:Double, z:Double) {
   
   def - = Vector3(-x, -y, -z)
   
-
-  
   def length = Math.sqrt(lengthSquared)
   
   def lengthSquared = x * x + y * y + z * z
