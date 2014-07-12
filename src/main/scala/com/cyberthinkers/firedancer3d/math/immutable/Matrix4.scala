@@ -81,7 +81,7 @@ case class Matrix4 (
       m00 * v2 - m01 * v0 + m02 * v1 - m03 * v3
   }
   
-  def transpose(that: Matrix4) {
+  def transpose = {
     Matrix4(
       m00, m10, m20, m30,
       m01, m11, m21, m31,
@@ -114,7 +114,7 @@ case class Matrix4 (
     Matrix4(n00, n01, n02, m03, n10, n11, n12, m13, n20, n21, n22, m23, m30, m31, m32, m33)
   }
   
-def rotateX(angle: Double) = {
+  def rotateX(angle: Double): Matrix4 = {
     val cosAngle = Math.cos(angle)
     val sinAngle = Math.sin(angle)
     
@@ -133,7 +133,7 @@ def rotateX(angle: Double) = {
     Matrix4(m00, n01, n02, m03, m10, n11, n12, m13, m20, n21, n22, m23, m30, n31, n32, m33)
   }
   
-  def rotateY(angle: Double) = {
+  def rotateY(angle: Double): Matrix4 = {
     val cosAngle = Math.cos(angle)
     val sinAngle = Math.sin(angle)
     
@@ -152,7 +152,7 @@ def rotateX(angle: Double) = {
     Matrix4(n00, m01, n02, m03, n10, m11, n12, m13, n20, m21, n22, m23, n30, m31, n32, m33)
   }
   
-  def rotateZ(angle: Double) = {
+  def rotateZ(angle: Double): Matrix4 = {
     val cosAngle = Math.cos(angle)
     val sinAngle = Math.sin(angle)
     

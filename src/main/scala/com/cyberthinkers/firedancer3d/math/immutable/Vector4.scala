@@ -18,9 +18,9 @@ case class Vector4(x:Double, y:Double, z:Double, w:Double) {
   
   def - = Vector4(-x, -y, -z, -w)
   
-  def length = Math.sqrt(lengthSquared)
-  
   def lengthSquared = x * x + y * y + z * z + w * w
+  
+  def length = Math.sqrt(lengthSquared)
   
   def normalize = {
     val d = length
