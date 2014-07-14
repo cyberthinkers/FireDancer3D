@@ -12,7 +12,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      
      def this(v: (Double, Double, Double, Double)) = this(v._1, v._2, v._3, v._4)
      
-     def this(w: Double, v: (Double, Double, Double)) = this(w, v._1, v._2, v._3)
+     def this(w: Double, v: (Double, Double, Double)) = this(v._1, v._2, v._3, w)
      
      def this(w: Double, v: Vector3) = this(v.x, v.y, v.z, w)
      
@@ -62,7 +62,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      }
      
      def rotateX(angle: Double): Quaternion = {
-       val halfAngle = .05 * angle
+       val halfAngle = .5 * angle
        val s = sin(halfAngle)
        val c = cos(halfAngle)
        Quaternion(
@@ -73,7 +73,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      }
      
      def rotateY(angle: Double): Quaternion = {
-       val halfAngle = .05 * angle
+       val halfAngle = .5 * angle
        val s = sin(halfAngle)
        val c = cos(halfAngle)
        Quaternion(
@@ -84,7 +84,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      }    
      
      def rotateZ(angle: Double): Quaternion = {
-       val halfAngle = .05 * angle
+       val halfAngle = .5 * angle
        val s = sin(halfAngle)
        val c = cos(halfAngle)
        Quaternion(     
@@ -145,7 +145,6 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
 object Quaternion {
   
    val identity = new Quaternion(0, 0, 0, 1)
-   val halfPI = Math.PI / 2
    
    def fromRotationMatrix(m: Matrix3): Quaternion = {
      // determine which of x,y,z,w is the largest
