@@ -24,7 +24,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
        Quaternion(this.x * that.x, this.y * that.y, this.z * that.z, this.w * that.w)
      }
      
-     def *(that: Quaternion) { // dot product
+     def *(that: Quaternion) {
        Quaternion(this.x * that.x, this.y * that.y, this.z * that.z, this.w * that.w)
      }
      
@@ -34,7 +34,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      
      def magnitude = {
        magnitudeSquared match {
-         case m if m > 0 => sqrt(magnitudeSquared)
+         case m if m > 0 => sqrt(m)
          case _          => 1
        }    
      }
@@ -111,7 +111,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      
      def uprightToObjectToEulerAngles: EulerAngles = {
        val sp = -2 * (y * z + w * x)
-       if(abs(sp) > .9999) {
+       if(abs(sp) > .9999) { // if(gimbal lock)
          EulerAngles(
            Math.PI / 2 * sp,
            atan2(-x * z - w * y, .5 - y * y - z * z),

@@ -16,7 +16,19 @@ case class Vector3(x:Double, y:Double, z:Double) {
   def *(d: Double) = Vector3(x * d, y * d, z * d)
   def /(d: Double) = Vector3(x / d, y / d, z / d)
   
+  /**
+   * Negate
+   */
   def - = Vector3(-x, -y, -z)
+  
+  /**
+   * Dot product
+   */
+  def dot(that: Vector3): Double = {this.x * that.x + this.y * that.y + this.z * that.z}
+
+  def crossProduct(that: Vector3) = Vector3(this.y * that.z - this.z * that.y,
+                                            this.z * that.x - this.x * that.z,
+                                            this.x * that.y - this.y * that.x)
   
   def length = Math.sqrt(lengthSquared)
   
@@ -39,7 +51,7 @@ case class Vector3(x:Double, y:Double, z:Double) {
 }
 
 object Vector3 {
-  val zero = Vector3
+  val zero = Vector3(0, 0 ,0)
   val one = Vector3(1, 1, 1)
   val negativeOne = Vector3(-1, -1, -1)
   val unitX = Vector3(1, 0, 0)
