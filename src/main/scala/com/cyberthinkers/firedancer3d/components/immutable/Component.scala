@@ -16,14 +16,14 @@ case class Ray(origin: Vector3 = Vector3.zero, direction: Vector3 = Vector3.unit
 
 object PointLocation extends Enumeration {
   type PointLocation = Value
-  val inside, outside, neither = Value
+  val front, on, back = Value
 }
 
 case class Plane(normal: Vector3 = Vector3.unitY, constant: Double = 0) extends Component {
   
    def this(plane: Plane) = this(plane.normal, plane.constant)
    
-   def this(pointA: Vector3, pointB: Vector3, pointC: Vector3) = this(Plane.toPlain(pointA, pointB, pointC))
+   def this(pointA: Vector3, pointB: Vector3, pointC: Vector3) = this(Plane.toPlane(pointA, pointB, pointC))
    
    def pseudoDistance(point: Vector3): Double = (normal dot point) - constant
    
@@ -32,12 +32,12 @@ case class Plane(normal: Vector3 = Vector3.unitY, constant: Double = 0) extends 
     */
    def pointLocation(point: Vector3): PointLocation.PointLocation = {
      val d = pseudoDistance(point)
-     if(d < 0) {
-       PointLocation.inside
-     } else if (d > 0) {
-       PointLocation.outside
+     if(d < 0.005) {
+       PointLocation.front
+     } else if (d > 0.005) {
+       PointLocation.back
      } else {
-       PointLocation.neither 
+       PointLocation.on 
      }
    }
 }
@@ -46,7 +46,7 @@ object Plane {
   /**
    * Creates a plane based on 3 points
    */
-   def toPlain(pointA: Vector3, pointB: Vector3,  pointC: Vector3): Plane = {
+   def toPlane(pointA: Vector3, pointB: Vector3,  pointC: Vector3): Plane = {
      val d1 = pointB - pointA
      val d2 = pointC - pointA
      val normal = (d1 crossProduct d2).normalize
