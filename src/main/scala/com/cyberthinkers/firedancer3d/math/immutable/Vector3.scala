@@ -1,5 +1,7 @@
 package com.cyberthinkers.firedancer3d.math.immutable
 
+import Math._
+
 case class Vector3(x:Double, y:Double, z:Double) {
 
   def this(v: Vector3) = this(v.x, v.y, v.z)
@@ -20,6 +22,12 @@ case class Vector3(x:Double, y:Double, z:Double) {
    * Negate
    */
   def - = Vector3(-x, -y, -z)
+  
+  def ~=(that: Vector3, epsilon: Double = Vector3.epsilon): Boolean = {
+    abs(this.x - that.x) < epsilon &&
+    abs(this.y - that.y) < epsilon &&
+    abs(this.z - that.z) < epsilon 
+  }
   
   /**
    * Dot product
@@ -60,4 +68,19 @@ object Vector3 {
   val negativeUnitX = Vector3(-1, 0, 0)
   val negativeUnitY = Vector3(0, -1, 0)
   val negativeUnitZ = Vector3(0, 0, -1)
+  val epsilon = (1e-4)
+  
+  def min(v1: Vector3, v2: Vector3): Vector3 = {
+    Vector3(
+      if(v1.x < v2.x) v1.x else v2.x,
+      if(v1.y < v2.y) v1.y else v2.y,
+      if(v1.z < v2.z) v1.z else v2.z)
+  }
+  
+  def max(v1: Vector3, v2: Vector3): Vector3 = {
+    Vector3(
+      if(v1.x > v2.x) v1.x else v2.x,
+      if(v1.y > v2.y) v1.y else v2.y,
+      if(v1.z > v2.z) v1.z else v2.z)
+  }
 } 
