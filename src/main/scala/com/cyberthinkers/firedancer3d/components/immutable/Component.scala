@@ -14,16 +14,18 @@ case class Ray(origin: Vector3 = Vector3.zero, direction: Vector3 = Vector3.unit
   }
 }
 
-case class Box3(minExtents: Vector3, maxExtents: Vector3) extends Component {
+case class Box(minExtents: Vector3, maxExtents: Vector3) extends Component {
   
-  def this(cubeSize: Double) = this(Box3.toBox(-cubeSize), Box3.toBox(cubeSize))
+  def this(box: Box) = this(box.minExtents, box.maxExtents)
   
-  def *(p: Vector3): Box3 = {Box3(minExtents * p, maxExtents * p)}
+  def this(cubeSize: Double) = this(Box.toBox(cubeSize))
   
-  def *(scale: Double): Box3 = {Box3(minExtents * scale, maxExtents * scale)}
+  def *(p: Vector3): Box = {Box(minExtents * p, maxExtents * p)}
   
-  def ~=(box: Box3) = {
-    (minExtents ~= box.minExtents) && (maxExtents ~= box.maxExtents)
+  def *(scale: Double): Box = {Box(minExtents * scale, maxExtents * scale)}
+  
+  def ~==(box: Box): Boolean = {
+    (minExtents ~== box.minExtents) && (maxExtents ~== box.maxExtents)
   }
   
   def center: Vector3 = {
@@ -45,13 +47,13 @@ case class Box3(minExtents: Vector3, maxExtents: Vector3) extends Component {
     point.z >= minExtents.z && point.z < maxExtents.z
   }
   
-  def intersect(that: Box3) = {
-    Box3(
+  def intersect(that: Box) = {
+    Box(
       Vector3.min(this.minExtents, that.minExtents),
       Vector3.min(this.maxExtents, that.maxExtents))
   }
   
-  def contains(box: Box3): Boolean = {
+  def contains(box: Box): Boolean = {
     minExtents.x <= box.minExtents.x &&
     minExtents.y <= box.minExtents.y &&
     minExtents.z <= box.minExtents.z &&
@@ -60,7 +62,7 @@ case class Box3(minExtents: Vector3, maxExtents: Vector3) extends Component {
     maxExtents.z >= box.maxExtents.z
   }
   
-  def overlaps(box: Box3): Boolean = {
+  def overlaps(box: Box): Boolean = {
     if(box.minExtents.x > maxExtents.x ||
        box.minExtents.y > maxExtents.y ||
        box.minExtents.z > maxExtents.z ||
@@ -73,12 +75,12 @@ case class Box3(minExtents: Vector3, maxExtents: Vector3) extends Component {
   }
 }
 
-object Box3 {
-  def toBox(cubeSize: Double): Vector3 = {val v = cubeSize * .5; Vector3(v, v, v)}
+object Box {
+  def toBox(cubeSize: Double): Box = {val v = cubeSize * .5; Box(Vector3(-v, -v, -v), Vector3(v, v, v));}
 }
 
-object PointLocation extends Enumeration {
-  type PointLocation = Value
+object Location extends Enumeration {
+  type Location = Value
   val front, on, back = Value
 }
 
@@ -88,24 +90,46 @@ case class Plane(normal: Vector3 = Vector3.unitY, constant: Double = 0) extends 
    
    def this(pointA: Vector3, pointB: Vector3, pointC: Vector3) = this(Plane.toPlane(pointA, pointB, pointC))
    
-   def pseudoDistance(point: Vector3): Double = (normal dot point) - constant
+   def distanceToPlane(point: Vector3): Double = (normal dot point) - constant
    
    /**
     * Determines the side of this plane on which the given point lies
     */
-   def pointLocation(point: Vector3): PointLocation.PointLocation = {
-     val d = pseudoDistance(point)
+   def whichSide(point: Vector3): Location.Location = {
+     val d = distanceToPlane(point)
      if(d <= 0.005) {
-       PointLocation.front
+       Location.front
      } else if (d >= -0.005) {
-       PointLocation.back
+       Location.back
      } else {
-       PointLocation.on 
+       Location.on 
      }
+   }
+   
+   /**
+    * Determines which side this aabb is located
+    * 
+    * See Graphics Gems IV, 1.7 and "A Faster Overlap Test for a Plane and a Bounding Box"
+    * (http://replay.waybackmachine.org/19981203032829/http://www.cs.unc.edu/~hoff/research/vfculler/boxplane.html)
+    * for details
+    */
+   def whichSide(aabb: Box): Location.Location = {
+     def vertex(v1:Vector3, v2:Vector3): Vector3 = 
+       Vector3(if(normal.x > 0) v1.x else v2.x,
+               if(normal.y > 0) v1.y else v2.y,
+               if(normal.z > 0) v1.z else v2.z)
+     if(whichSide(vertex(aabb.maxExtents, aabb.minExtents)) == Location.back) {
+       Location.back 
+     }
+     if(whichSide(vertex(aabb.minExtents, aabb.maxExtents)) == Location.front) {
+       Location.front 
+     }
+     Location.on
    }
 }
 
 object Plane {
+  
   /**
    * Creates a plane from 3 points
    */

@@ -23,7 +23,7 @@ case class Vector3(x:Double, y:Double, z:Double) {
    */
   def - = Vector3(-x, -y, -z)
   
-  def ~=(that: Vector3, epsilon: Double = Vector3.epsilon): Boolean = {
+  def ~==(that: Vector3, epsilon: Double = Vector3.epsilon): Boolean = {
     abs(this.x - that.x) < epsilon &&
     abs(this.y - that.y) < epsilon &&
     abs(this.z - that.z) < epsilon 
