@@ -6,7 +6,7 @@ case class Vector4(x:Double, y:Double, z:Double, w:Double) {
 
   def this(t: (Double, Double, Double, Double)) = this(t._1, t._2, t._3, t._4)
       
-  def tupled = (x, y, z, w)
+  def tupled = List(x, y, z, w)
   
   def +(that: Vector4) = Vector4(this.x + that.x, this.y + that.y, this.z + that.z, this.w + that.w)
   def -(that: Vector4) = Vector4(this.x - that.x, this.y - that.y, this.z - that.z, this.w - that.w)
