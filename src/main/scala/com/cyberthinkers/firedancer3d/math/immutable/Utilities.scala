@@ -8,7 +8,7 @@ object Utilities {
     
   def squared(p: Double) = p * p
   
-  def isValid(d: Double) = if(d == Double.NaN || d == Double.PositiveInfinity || d == Double.NegativeInfinity) false else true
+  def isValid(d: Double): Boolean = if(d == Double.NaN || d == Double.PositiveInfinity || d == Double.NegativeInfinity) false else true
   
-  def isValid(v: Vector[Double]) = v.forall()
+  def isValid(v: Vector[Double]) = if(v.find(d => d == Double.NaN || d == Double.PositiveInfinity || d == Double.NegativeInfinity) == Some()) false else true
 }

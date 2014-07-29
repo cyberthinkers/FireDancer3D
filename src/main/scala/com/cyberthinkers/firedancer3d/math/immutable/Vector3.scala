@@ -8,7 +8,7 @@ case class Vector3(x:Double, y:Double, z:Double) {
 
   def this(t: (Double, Double, Double)) = this(t._1, t._2, t._3)
 
-  def tupled = List(x, y, z)
+  def vectored = Vector(x, y, z)
   
   def +(that: Vector3) = Vector3(this.x + that.x, this.y + that.y, this.z + that.z)
   def -(that: Vector3) = Vector3(this.x - that.x, this.y - that.y, this.z - that.z)

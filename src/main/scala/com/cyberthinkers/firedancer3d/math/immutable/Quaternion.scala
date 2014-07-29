@@ -18,7 +18,7 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      
      def this(eulerAngles: EulerAngles) = this(Quaternion.fromEulerAngles(eulerAngles))
      
-     def tupled = (x, y, z, w)
+     def vectored = Vector(x, y, z, w)
      
      def *(that: Vector4) = {
        Quaternion(this.x * that.x, this.y * that.y, this.z * that.z, this.w * that.w)

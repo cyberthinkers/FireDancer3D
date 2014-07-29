@@ -123,9 +123,9 @@ object AxisAlignedBoundingBox {
     {val v = cubeSize * .5; AxisAlignedBoundingBox(Vector3(-v, -v, -v), Vector3(v, v, v))}
 }
 
-case class OrientedBoundingBox() extends BoundingVolume {
-
-}
+//case class OrientedBoundingBox() extends BoundingVolume {
+//
+//}
 
 case class BoundingSphere(center: Vector3, radius: Double) extends BoundingVolume {
   
