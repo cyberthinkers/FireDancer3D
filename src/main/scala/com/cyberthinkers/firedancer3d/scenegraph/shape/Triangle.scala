@@ -1,4 +1,4 @@
-package com.cyberthinks.firedance.scenegraph.shape
+package com.cyberthinkers.firedancer3d.scenegraph.shape
 
 import com.cyberthinkers.firedancer3d.math.immutable._
 
