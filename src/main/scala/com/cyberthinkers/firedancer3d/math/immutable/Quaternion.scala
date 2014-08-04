@@ -6,7 +6,7 @@ import math._
  *
  * @author Larry Melia
  */
-case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
+case class Quaternion(x: Double, y: Double, z: Double, w: Double) extends Vectored {
   
      def this(q: Quaternion) = this(q.x, q.y, q.z, q.w)
      
@@ -30,6 +30,13 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) {
      
      def unary_- = Quaternion(-x, -y, -z, -w)
      
+     def ~==(that: Vector4): Boolean = {
+       val epsilon = (1e-4)
+       abs(this.x - that.x) < epsilon &&
+       abs(this.y - that.y) < epsilon &&
+       abs(this.z - that.z) < epsilon &&
+       abs(this.w - that.w) < epsilon
+     }   
      def magnitudeSquared =  x * x + y * y + z * z + w * w
      
      def magnitude = {

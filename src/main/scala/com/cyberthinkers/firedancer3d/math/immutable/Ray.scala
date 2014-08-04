@@ -1,4 +1,5 @@
 package com.cyberthinkers.firedancer3d.math.immutable
+import Math._
 
 case class Ray(origin: Vector3 = Vector3.zero, direction: Vector3 = Vector3.unitZ) {
   def distanceSquared(point: Vector3) = {
@@ -8,4 +9,6 @@ case class Ray(origin: Vector3 = Vector3.zero, direction: Vector3 = Vector3.unit
     val p3 = point - p2
     p3.lengthSquared
   }
+  
+  def distance(point: Vector3) = Math.sqrt(distanceSquared(point))
 }

@@ -1,6 +1,8 @@
 package com.cyberthinkers.firedancer3d.math.immutable
 
-case class Vector4(x:Double, y:Double, z:Double, w:Double) {
+import Math._
+
+case class Vector4(x:Double, y:Double, z:Double, w:Double) extends Vectored {
 
   def this(v: Vector4) = this(v.x, v.y, v.z, v.w)
 
@@ -16,7 +18,15 @@ case class Vector4(x:Double, y:Double, z:Double, w:Double) {
   def *(d: Double) = Vector4(x * d, y * d, z * d, w * d)
   def /(d: Double) = Vector4(x / d, y / d, z / d, w / d)
   
-  def - = Vector4(-x, -y, -z, -w)
+  def unary_- = Vector4(-x, -y, -z, -w)
+  
+  def ~==(that: Vector4): Boolean = {
+    val epsilon = (1e-4)
+    abs(this.x - that.x) < epsilon &&
+    abs(this.y - that.y) < epsilon &&
+    abs(this.z - that.z) < epsilon &&
+    abs(this.w - that.w) < epsilon
+  }
   
   def lengthSquared = x * x + y * y + z * z + w * w
   

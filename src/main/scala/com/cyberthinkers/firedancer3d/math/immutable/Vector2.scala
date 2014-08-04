@@ -1,6 +1,8 @@
 package com.cyberthinkers.firedancer3d.math.immutable
 
-case class Vector2(x:Double, y:Double) {
+import Math._
+
+case class Vector2(x:Double, y:Double) extends Vectored {
 
   def this(v: Vector2) = this(v.x, v.y)
 
@@ -16,7 +18,13 @@ case class Vector2(x:Double, y:Double) {
   def *(d: Double) = Vector2(x * d, y * d)
   def /(d: Double) = Vector2(x / d, y / d)
   
-  def - = Vector2(-x, -y)
+  def unary_- = Vector2(-x, -y)
+  
+  def ~==(that: Vector2): Boolean = {
+    val epsilon = (1e-4)
+    abs(this.x - that.x) < epsilon &&
+    abs(this.y - that.y) < epsilon 
+  }
   
   def length = Math.sqrt(lengthSquared)
   

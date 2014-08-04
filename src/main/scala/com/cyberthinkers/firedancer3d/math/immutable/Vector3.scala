@@ -2,7 +2,7 @@ package com.cyberthinkers.firedancer3d.math.immutable
 
 import Math._
 
-case class Vector3(x:Double, y:Double, z:Double) {
+case class Vector3(x:Double, y:Double, z:Double) extends Vectored {
 
   def this(v: Vector3) = this(v.x, v.y, v.z)
 
@@ -21,9 +21,10 @@ case class Vector3(x:Double, y:Double, z:Double) {
   /**
    * Negate
    */
-  def - = Vector3(-x, -y, -z)
+  def unary_- = Vector3(-x, -y, -z)
   
-  def ~==(that: Vector3, epsilon: Double = Vector3.epsilon): Boolean = {
+  def ~==(that: Vector3): Boolean = {
+    val epsilon = (1e-4)
     abs(this.x - that.x) < epsilon &&
     abs(this.y - that.y) < epsilon &&
     abs(this.z - that.z) < epsilon 
@@ -68,7 +69,6 @@ object Vector3 {
   val negativeUnitX = Vector3(-1, 0, 0)
   val negativeUnitY = Vector3(0, -1, 0)
   val negativeUnitZ = Vector3(0, 0, -1)
-  val epsilon = (1e-4)
   
   def min(v1: Vector3, v2: Vector3): Vector3 = {
     Vector3(

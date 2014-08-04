@@ -1,7 +1,6 @@
 package com.cyberthinkers.firedancer3d.math.immutable
 
 import Math._
-import Utilities.squared
 
 abstract class BoundingVolume {
    def contains(point: Vector3): Boolean
@@ -13,7 +12,7 @@ abstract class BoundingVolume {
  * Axis-aligned bounding box (AABB).
  * 
  * This is a simple six-sided box with each side parallel to one of the cardinal planes. 
- * The box is not necesarily a cube-the length, width, and height of the box may each be different.
+ * The box is not necessarily a cube-the length, width, and height of the box may each be different.
  * (See "3D Math Primer for Graphics and Game Development," by Dunn and Parberry)
  */
 case class AxisAlignedBoundingBox(minExtents: Vector3, maxExtents: Vector3) extends BoundingVolume {
@@ -59,6 +58,7 @@ case class AxisAlignedBoundingBox(minExtents: Vector3, maxExtents: Vector3) exte
   }
   
   def squaredDistanceTo(point: Vector3): Double = {
+    def squared(d: Double) = d * d
     def dist(p: Double, min: Double, max: Double) = if(p < min) squared(min - p) else squared(p - max) 
     dist(point.x, minExtents.x, maxExtents.x) +
     dist(point.y, minExtents.y, maxExtents.y) +
