@@ -30,27 +30,24 @@ case class Quaternion(x: Double, y: Double, z: Double, w: Double) extends Vector
      
      def unary_- = Quaternion(-x, -y, -z, -w)
      
+     /**
+      * Approximately equal 
+      * Warning: might need to force precedence with parentheses
+      */
      def ~==(that: Vector4): Boolean = {
        val epsilon = (1e-4)
        abs(this.x - that.x) < epsilon &&
        abs(this.y - that.y) < epsilon &&
        abs(this.z - that.z) < epsilon &&
        abs(this.w - that.w) < epsilon
-     }   
+     }
+     
      def magnitudeSquared =  x * x + y * y + z * z + w * w
      
-     def magnitude = {
-       magnitudeSquared match {
-         case m if m > 0 => sqrt(m)
-         case _          => 1
-       }    
-     }
+     def magnitude = {val m = magnitudeSquared; if(m > 0) sqrt(m) else 1}
      
-     def normalize: Quaternion = {
-       val f = 1 / magnitude
-       Quaternion(x * f, y * f, z * f, w * f)
-     }
-   
+     def normalize: Quaternion = {val f = 1 / magnitude; Quaternion(x * f, y * f, z * f, w * f)}
+
      def rotate(angle: Double, xp: Double, yp: Double, zp: Double): Quaternion = {
        if(x == 0 && z == 0 && z == 0) {
           this

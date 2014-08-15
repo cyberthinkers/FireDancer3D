@@ -4,8 +4,8 @@ import Math._
 
 abstract class BoundingVolume {
    def contains(point: Vector3): Boolean
-   def squaredDistanceTo(point: Vector3): Double
-   def distanceTo(point: Vector3): Double
+   def distanceSquared(point: Vector3): Double
+   def distance(point: Vector3): Double
 }
 
 /**
@@ -49,15 +49,13 @@ case class AxisAlignedBoundingBox(minExtents: Vector3, maxExtents: Vector3) exte
     AxisAlignedBoundingBox(min, max)
   }
   
-  def *(s: Vector3): AxisAlignedBoundingBox = {AxisAlignedBoundingBox(minExtents * s, maxExtents * s)}
+  def *(scale: Vector3): AxisAlignedBoundingBox = AxisAlignedBoundingBox(minExtents * scale, maxExtents * scale)
   
-  def *(scale: Double): AxisAlignedBoundingBox = {AxisAlignedBoundingBox(minExtents * scale, maxExtents * scale)}
+  def *(scale: Double): AxisAlignedBoundingBox = AxisAlignedBoundingBox(minExtents * scale, maxExtents * scale)
   
-  def ~==(box: AxisAlignedBoundingBox): Boolean = {
-    (minExtents ~== box.minExtents) && (maxExtents ~== box.maxExtents)
-  }
+  def ~==(that: AxisAlignedBoundingBox): Boolean = (this.minExtents ~== that.minExtents) && (this.maxExtents ~== that.maxExtents)
   
-  def squaredDistanceTo(point: Vector3): Double = {
+  def distanceSquared(point: Vector3): Double = {
     def squared(d: Double) = d * d
     def dist(p: Double, min: Double, max: Double) = if(p < min) squared(min - p) else squared(p - max) 
     dist(point.x, minExtents.x, maxExtents.x) +
@@ -65,7 +63,7 @@ case class AxisAlignedBoundingBox(minExtents: Vector3, maxExtents: Vector3) exte
     dist(point.z, minExtents.z, maxExtents.z)
   }
   
-  def distanceTo(point: Vector3): Double = Math.sqrt(squaredDistanceTo(point))
+  def distance(point: Vector3): Double = Math.sqrt(distanceSquared(point))
   
   def center: Vector3 = {
     Vector3(  
@@ -117,7 +115,8 @@ case class AxisAlignedBoundingBox(minExtents: Vector3, maxExtents: Vector3) exte
 object AxisAlignedBoundingBox {
   
   val emptyBox = AxisAlignedBoundingBox(
-    Vector3(Double.MaxValue, Double.MaxValue, Double.MaxValue), Vector3(Double.MinValue, Double.MinValue, Double.MinValue))
+    Vector3(Double.MaxValue, Double.MaxValue, Double.MaxValue),
+    Vector3(Double.MinValue, Double.MinValue, Double.MinValue))
     
   def toAxisAlignedBoundingBox(cubeSize: Double): AxisAlignedBoundingBox =
     {val v = cubeSize * .5; AxisAlignedBoundingBox(Vector3(-v, -v, -v), Vector3(v, v, v))}
@@ -131,7 +130,7 @@ case class BoundingSphere(center: Vector3, radius: Double) extends BoundingVolum
   
   def contains(point: Vector3): Boolean = (center - point).lengthSquared <= radius * radius
   
-  def contains(that: BoundingSphere) = {
+  def contains(that: BoundingSphere): Boolean = {
     if(this.radius < that.radius) {
       false
     }
@@ -139,7 +138,7 @@ case class BoundingSphere(center: Vector3, radius: Double) extends BoundingVolum
     (this.center - that.center).lengthSquared <= r * r
   }
 
-  def squaredDistanceTo(point: Vector3): Double = (center - point).lengthSquared - radius * radius
+  def distanceSquared(point: Vector3): Double = (center - point).lengthSquared - radius * radius
   
-  def distanceTo(point: Vector3): Double = (center - point).length - radius
+  def distance(point: Vector3): Double = (center - point).length - radius
 }
