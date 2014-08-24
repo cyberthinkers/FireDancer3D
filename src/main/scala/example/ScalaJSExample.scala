@@ -8,6 +8,8 @@ import com.cyberthinkers.firedancer3d.math.immutable._
 
 object ScalaJSExample extends js.JSApp {
   def main(): Unit = {
+    val c = ColorRGBA(.5f,.5f,.5f,.5f)
+    val t = c.toColorHSLA
     //val v = Matrix4(); // doesn't work
     val tmp = EulerAngles.toCanonicalForm(.3, .2, .1)
     val m = Matrix4.identity
