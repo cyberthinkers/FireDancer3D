@@ -1,4 +1,4 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 
 trait Vectored {
    def vectored: Vector[Double]

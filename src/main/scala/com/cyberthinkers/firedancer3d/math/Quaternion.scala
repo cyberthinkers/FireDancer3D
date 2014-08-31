@@ -1,5 +1,16 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 import math._
+import comimport com.cyberthinkers.firedancer3d.math.Vector4
+import com.cyberthinkers.firedancer3d.math.Vectored
+.cyberthinkers.firedancer3d.math.immutable.EulerAngles
+import com.cyberthinkers.firedancer3d.math.immutable.Matrix3
+import com.cyberthinkers.firedancer3d.math.immutable.Vector3
+import com.cyberthinkers.firedancer3d.math.immutable.Vector4
+import com.cyberthinkers.firedancer3d.math.immutable.Vectored
+import scala.Vector
+import com.cyberthinkers.firedancer3d.math.Matrix3
+import com.cyberthinkers.firedancer3d.math.Vector3
+import com.cyberthinkers.firedancer3d.math.EulerAngles
 
 /**
  * Quaternion

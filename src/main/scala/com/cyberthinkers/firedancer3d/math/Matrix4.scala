@@ -1,4 +1,14 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
+
+import comimport com.cyberthinkers.firedancer3d.math.Vector4
+
+import com.cyberthinkers.firedancer3d.math.Matrix3
+
+import com.cyberthinkers.firedancer3d.math.Vector3
+
+.cyberthinkers.firedancer3d.math.immutable.Matrix3
+import com.cyberthinkers.firedancer3d.math.immutable.Vector3
+import com.cyberthinkers.firedancer3d.math.immutable.Vector4
 
 case class Matrix4 (
    m00: Double, m01: Double, m02: Double, m03: Double,

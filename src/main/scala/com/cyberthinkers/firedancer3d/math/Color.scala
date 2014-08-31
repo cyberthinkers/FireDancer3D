@@ -1,10 +1,10 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 import Math._
+import scala.Vector
 
 trait ColorSupport {
   protected def clamp0to1(v: Float): Float = if(v < 0) 0 else if(v > 1) 1 else v
   def vectored: Vector[Float]
-  
 }
 
 case class ColorRGBA(red: Float, green: Float, blue: Float, alpha: Float = 1) extends ColorSupport {

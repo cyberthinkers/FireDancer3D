@@ -1,5 +1,7 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 import Math._
+import comimport com.cyberthinkers.firedancer3d.math.Utilities
+.cyberthinkers.firedancer3d.math.immutable.Utilities
 
 case class EulerAngles(heading: Double, pitch: Double, bank: Double) {
   

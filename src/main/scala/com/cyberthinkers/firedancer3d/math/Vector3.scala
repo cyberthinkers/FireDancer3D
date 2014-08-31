@@ -1,6 +1,9 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 
 import Math._
+import comimport com.cyberthinkers.firedancer3d.math.Vectored
+.cyberthinkers.firedancer3d.math.immutable.Vectored
+import scala.Vector
 
 case class Vector3(x:Double, y:Double, z:Double) extends Vectored {
 

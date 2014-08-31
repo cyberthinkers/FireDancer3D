@@ -1,6 +1,10 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 
 import Math._
+import com.cyberthinkers.firedancer3d.math.immutable.EulerAngles
+import com.cyberthinkers.firedancer3d.math.immutable.Vector3
+import com.cyberthinkers.firedancer3d.math.Vector3
+import com.cyberthinkers.firedancer3d.math.EulerAngles
 
 case class Matrix3(
   m00: Double, m01: Double, m02: Double,

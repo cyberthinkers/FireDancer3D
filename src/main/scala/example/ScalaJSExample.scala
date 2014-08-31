@@ -5,6 +5,11 @@ import js.annotation.JSExport
 import org.scalajs.dom
 import com.cyberthinkers.firedancer3d.math._
 import com.cyberthinkers.firedancer3d.math.immutable._
+import com.cyberthinkers.firedancer3d.math.Vector4
+import com.cyberthinkers.firedancer3d.math.Vector3
+import com.cyberthinkers.firedancer3d.math.Matrix4
+import com.cyberthinkers.firedancer3d.math.EulerAngles
+import com.cyberthinkers.firedancer3d.math.ColorRGBA
 
 object ScalaJSExample extends js.JSApp {
   def main(): Unit = {

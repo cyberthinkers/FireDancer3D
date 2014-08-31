@@ -1,5 +1,7 @@
-package com.cyberthinkers.firedancer3d.math.immutable
+package com.cyberthinkers.firedancer3d.math
 import Math._
+import com.cyberthinkers.firedancer3d.math.immutable.Vector3
+import com.cyberthinkers.firedancer3d.math.Vector3
 
 case class Ray(origin: Vector3 = Vector3.zero, direction: Vector3 = Vector3.unitZ) {
   def distanceSquared(point: Vector3) = {
