@@ -1,9 +1,6 @@
 package com.cyberthinkers.firedancer3d.math
 
 import Math._
-import com.cyberthinkers.firedancer3d.math.immutable.AxisAlignedBoundingBox
-import com.cyberthinkers.firedancer3d.math.immutable.Vector3
-import com.cyberthinkers.firedancer3d.math.Vector3
 
 object Location extends Enumeration {
   type Location = Value
