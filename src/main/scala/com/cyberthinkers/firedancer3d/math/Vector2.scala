@@ -20,7 +20,7 @@ case class Vector2(x:Double, y:Double) extends Vectored {
   
   def unary_- = Vector2(-x, -y)
   
-  def ~==(that: Vector2): Boolean = {
+  def ==~(that: Vector2): Boolean = {
     val epsilon = (1e-4)
     abs(this.x - that.x) < epsilon &&
     abs(this.y - that.y) < epsilon 

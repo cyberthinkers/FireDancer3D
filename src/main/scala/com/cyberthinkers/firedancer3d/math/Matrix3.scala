@@ -131,7 +131,6 @@ case class Matrix3(
 
     Matrix3(n00, n01, m02, n10, n11, m12, n20, n21, m22)
   }
-  
 }
 
 object Matrix3 {

@@ -53,7 +53,7 @@ case class AxisAlignedBoundingBox(minExtents: Vector3, maxExtents: Vector3) exte
   
   def *(scale: Double): AxisAlignedBoundingBox = AxisAlignedBoundingBox(minExtents * scale, maxExtents * scale)
   
-  def ~==(that: AxisAlignedBoundingBox): Boolean = (this.minExtents ~== that.minExtents) && (this.maxExtents ~== that.maxExtents)
+  def ==~(that: AxisAlignedBoundingBox): Boolean = (this.minExtents ==~ that.minExtents) && (this.maxExtents ==~ that.maxExtents)
   
   def distanceSquared(point: Vector3): Double = {
     def squared(d: Double) = d * d

@@ -1,4 +1,4 @@
-package com.cyberthinkers.firedancer3d.scenegraph.shape
+package com.cyberthinkers.firedancer3d.scenegraph.geometry
 
 import com.cyberthinkers.firedancer3d.math._
 
