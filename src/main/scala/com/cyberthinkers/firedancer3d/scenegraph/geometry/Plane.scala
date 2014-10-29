@@ -1,6 +1,6 @@
-package com.cyberthinkers.firedancer3d.math
+package com.cyberthinkers.firedancer3d.scenegraph.geometry
 
-import Math._
+import com.cyberthinkers.firedancer3d.math._
 
 object Location extends Enumeration {
   type Location = Value

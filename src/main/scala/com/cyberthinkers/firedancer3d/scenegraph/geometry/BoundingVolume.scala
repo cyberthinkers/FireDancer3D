@@ -1,6 +1,7 @@
-package com.cyberthinkers.firedancer3d.math
+package com.cyberthinkers.firedancer3d.scenegraph.geometry
 
 import Math._
+import com.cyberthinkers.firedancer3d.math.Vector3
 
 abstract class BoundingVolume {
    def contains(point: Vector3): Boolean
