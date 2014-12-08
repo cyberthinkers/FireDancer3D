@@ -1,7 +1,0 @@
-package com.cyberthinkers.firedancer3d.scenegraph.geometry
-
-import com.cyberthinkers.firedancer3d.math._
-
-case class Triangle(pointA: Vector3, pointB: Vector3, pointC: Vector3) extends Drawable {
-
-}
