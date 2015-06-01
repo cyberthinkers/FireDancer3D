@@ -1,6 +1,12 @@
 ### FireDancer3D - A graphics engine for doing 3D graphics in Scala
 
-FireDancer3D is an engine for doing 3D graphics, animation and spatial sound. While it is styled after a number of open source gaming engines, the purpose of the engine is to promote a new style of user interaction on the Web. It uses Scala.js to generate JavaScript for the browser and WebGL for 2D/3D graphics.  
+FireDancer3D is a 3D engine and support library written in Scala. It will include support for animation and spatial sound. It supports 
+
+it is patterned after a number of open source gaming engines, it ca
+
+the purpose of the library is not  promote a new style of user interaction on the Web. 
+
+It uses Scala.js to generate JavaScript for the browser and supports WebGL for 2D/3D graphics.  
 
 ### License
 See http://opensource.org/licenses/MIT 

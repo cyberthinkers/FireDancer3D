@@ -1,5 +1,11 @@
 target/
+bin/
 .cache
 .classpath
 .project
 .settings/
+.idea
+.idea_modules
+*.jar
+*.7z
+

@@ -1,6 +1,0 @@
-package org.firedancer3d.math
-
-trait Vectored {
-   def vectored: Vector[Double]
-   def isValid = if(vectored.find(d => d == Double.NaN || d == Double.PositiveInfinity || d == Double.NegativeInfinity) == Some()) false else true
-}
