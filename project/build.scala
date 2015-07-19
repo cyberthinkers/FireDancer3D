@@ -12,7 +12,7 @@ import org.scalajs.sbtplugin.cross.CrossType
 object FireDancer3DBuild extends Build {
 
 lazy val globalSettings =
-	Seq(organization := "firedancer3d.org", version := "0.1.0", scalaVersion := "2.11.6")
+	Seq(organization := "firedancer3d.org", version := "0.1.0", scalaVersion := "2.11.7", scalacOptions += "-deprecation" )
 		
 lazy val root =
 	Project(id = "firedancer3d_root", base = file("."))
@@ -29,7 +29,7 @@ lazy val firedancer3d_jvm =
 	Project(id = "firedancer3d_jvm", base = file("firedancer3d_jvm"))
 	.settings(globalSettings: _*)
 	.settings(unmanagedSourceDirectories in Compile += file("d:/cyberthinkers-dev/FireDancer3D/firedancer3d_shared") / "src")
-	.settings(libraryDependencies += "com.lihaoyi" %% "scalatags" % "0.5.1")
+	.settings(libraryDependencies += "com.lihaoyi" %% "scalatags" % "0.5.2")
 	.dependsOn(firedancer3d_shared)
 
 lazy val firedancer3d_js =
@@ -38,6 +38,6 @@ lazy val firedancer3d_js =
 	.settings(globalSettings: _*)
 	//.settings(unmanagedSourceDirectories in Compile += file("d:/cyberthinkers-dev/FireDancer3D/firedancer3d_shared") / "src")
 	.settings(libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.8.0")
-	.settings(libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.5.1")
+	.settings(libraryDependencies += "com.lihaoyi" %%% "scalatags" % "0.5.2")
 	.dependsOn(firedancer3d_shared)
 }
