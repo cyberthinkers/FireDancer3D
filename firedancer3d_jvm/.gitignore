@@ -8,5 +8,3 @@ bin/
 .idea_modules
 *.jar
 *.7z
-.cache
-.cache-main
