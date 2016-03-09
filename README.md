@@ -3,5 +3,5 @@ FireDancer3D is a 3D engine and support library written in Scala. It uses Scala.
 
 ### (just started - not completed yet)
 
-### License
-[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) 
+### [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
+ 
